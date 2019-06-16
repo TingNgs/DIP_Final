@@ -13,15 +13,22 @@
     <noscript style="background-color:rgb(255,0,0);color:rgb(255,255,255);font-size: 250%;">Please enable
         JavaScript!</noscript>
 
-    <input type="file"><br>
-    <p>Eraser Size :</p> <input id="EraserInput" type="text" value="10"><br>
+    <input id="image" type="file"><br>
+    <p>Eraser Size :</p> <input id="EraserInput" type="text" value="10">
+    <button onclick="ResetImage()">Reset Image</button><br>
     <div id="canvascontainer">
         <canvas id="canvas"></canvas>
         <div class="cursor"></div>
     </div><br>
-    <button onclick="ImgToSvg(canvas,()=>{})">To Svg</button>
+    <button onclick="ImgToSvg(canvas,0,()=>{})">To Svg</button>
+    <button onclick="ImgToSvg(canvas,1,()=>{})">To Sharp Svg</button>
+    <button onclick="ImgToSvg(canvas,2,()=>{})">To Smoothed Svg</button>
+    <button onclick="ImgToSvg(canvas,3,()=>{})">To Grayscale Svg</button>
+    <button onclick="ImgToSvg(canvas,4,()=>{})">To Curvy Svg</button>
     <button onclick="binary(0)">To Black SVG</button>
-    <button onclick="binary(1)">To Colorful SVG</button>
+    <button onclick="binary(1)">To Colorful Mask SVG</button><br>
+    <p>Custom background :</p><input id="bg_image" type="file">
+    <button onclick="binary(2)">To Custom Mask SVG</button>
     <div id="svgcontainer"></div>
     <a href="#" class="link-download">Download displayed SVG</a>
 </body>
