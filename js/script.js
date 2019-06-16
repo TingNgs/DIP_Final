@@ -33,7 +33,7 @@ document.querySelector('input[type="file"]').addEventListener('change', function
         ctx = canvas.getContext('2d');
         img.onload = function () {
             c_w = Math.min(500, img.width);
-            c_h = img.width * (c_w / img.width);
+            c_h = img.height * (c_w / img.width);
 
             canvas.width = c_w;
             canvas.height = c_h;
@@ -85,7 +85,7 @@ function ImgToSvg(toSvgCanvas, callback) {
 
 
 function binary(n) {
-    var threshold = n;
+    var threshold = 255;
     var c = document.createElement("canvas");
     c.width = c_w;
     c.height = c_h;
@@ -132,7 +132,7 @@ function binary(n) {
     }
     tempCtx.putImageData(imgData, 0, 0);
     ImgToSvg(c, () => {
-        if (n == 0) {
+        if (n == 1) {
             ToImgMask()
         }
     })
@@ -149,11 +149,23 @@ function ToImgMask() {
     let tempString = '<mask id="mask-path" x="0" y="0" width="1" height="1">';
 
     for (let index = 0; index < paths.length; index++) {
-        tempString += s.serializeToString(paths[index]);
+        pathString = s.serializeToString(paths[index]);
+        pathString = pathString.replace(/0,0,0/g, '255,255,255');
+        tempString += pathString;
         if (index == paths.length - 1) tempString += '</mask><image xlink:href="colorBG.jpg" x="0" y="0" mask="url(#mask-path)" style="object-fit: cover"/>';
     }
-
     svg.innerHTML = tempString;
-
-
 }
+
+document.querySelector(".link-download").addEventListener("click", (evt) => {
+    const svgContent = document.getElementById("svgcontainer").innerHTML,
+        blob = new Blob([svgContent], {
+            type: "image/svg+xml"
+        }),
+        url = window.URL.createObjectURL(blob),
+        link = evt.target;
+
+    link.target = "_blank";
+    link.download = "Illustration.svg";
+    link.href = url;
+});
