@@ -1,0 +1,2 @@
+.delete{display:none}p{display:inline}.cursor{width:20px;height:20px;border:1px solid white;border-radius:50%;position:absolute;display:none;pointer-events:none}#canvascontainer{border:1px solid blue;display:inline-block;background-image:url("../bg.jpg");cursor:none}#canvascontainer:hover .cursor{display:block}
+/*# sourceMappingURL=style.css.map */
